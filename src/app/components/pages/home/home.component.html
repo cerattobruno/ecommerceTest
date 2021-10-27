@@ -1,1 +1,41 @@
-<p>home works!</p>
+<!-- Start Featured Product -->
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Mejores Puntuados</h1>
+                <p>
+                    Nuestra selección de los mejores productos
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <ng-container *ngFor="let p of productos; let i = index">
+                <div class="col-12 col-sm-12 col-md-4 mb-4" *ngIf="i < 3">
+                    <div class="card h-100">
+                        <img src={{p.image}} class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    {{p.rating.rate}}&nbsp;<i class="text-warning bi bi-star-fill"></i>
+                                </li>
+                                <li class="text-muted text-right">{{p.price | currency}}</li>
+                            </ul>
+                            <a class="h2 text-decoration-none text-dark">{{p.title}}</a>
+                            
+                        </div>
+                        <div class="card-footer">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li><p class="text-muted">Reviews {{p.rating.count}}</p></li>
+                                <li><i class="bi bi-heart-fill float-right" [ngClass]="p.like ? 'text-danger' : 'text-muted'" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar" (click)="ilike(p)"></i></li>
+                            </ul>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </ng-container>  
+        </div>
+    </div>
+</section>
+<!-- End Featured Product -->
