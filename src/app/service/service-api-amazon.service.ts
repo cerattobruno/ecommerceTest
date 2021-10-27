@@ -14,5 +14,11 @@ export class ServiceApiAmazonService {
     return axios.get(url)
   }
 
+  async getCategories(){
+    let url = 'https://fakestoreapi.com/products/categories';
+
+    return axios.get(url)
+  }
+
 
 }

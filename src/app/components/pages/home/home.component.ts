@@ -19,7 +19,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchProducts();
+    if( localStorage.getItem('productos') != '' ){
+      let p: any = localStorage.getItem('productos')
+      this.productos = JSON.parse(p)
+      this.ordenarProductosByRating()
+    } else this.searchProducts()
   }
 
   async searchProducts(){
@@ -40,15 +44,14 @@ export class HomeComponent implements OnInit {
   }
 
   ordenarProductosByRating() {
-    let productosOrdenadosByRating = _.orderBy(this.productos, ['rating.rate'] ,['desc'])
-    console.log(productosOrdenadosByRating);
+    this.productosOrdenadosByRating = _.orderBy(this.productos, ['rating.rate'] ,['desc'])
   }
 
   ilike( product: any ) {
-    let producto = _.find(this.productos, ['id', product.id]);
-    producto['like'] = !producto['like'];
-    console.log(producto);
-    console.log(localStorage.removeItem('productos'));
+    let producto = _.find(this.productos, ['id', product.id])
+    producto['like'] = !producto['like']
+
+    localStorage.removeItem('productos')
     localStorage.setItem('productos', JSON.stringify(this.productos))
   }
 
