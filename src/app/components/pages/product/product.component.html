@@ -15,14 +15,6 @@
                             <i class="bi bi-star-fill text-warning"></i> &nbsp;
                             <span class="list-inline-item text-dark">Rating {{producto_rate}} | {{producto_count}} Valoraciones</span>
                         </p>
-                        <!-- <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <h6>Brand:</h6>
-                            </li>
-                            <li class="list-inline-item">
-                                <p class="text-muted"><strong>Easy Wear</strong></p>
-                            </li>
-                        </ul> -->
 
                         <h6>Descripción:</h6>
                         <p>{{producto_descripcion}}</p>
@@ -38,14 +30,14 @@
                                         Cantidad
                                     </li>
                                     <li class="list-inline-item">
-                                        <input type="number" class="form-control" name="cantidad" id="cantidad" (ngModel)="cantidad">
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad" (ngModel)="cantidad" (blur)="validarCantidad($event)">
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="row pb-3">
                             <div class="col d-grid">
-                                <button type="submit" class="btn btn-outline-primary btn-lg" name="submit">Agregar al carrito</button>
+                                <button type="button" class="btn btn-outline-primary btn-lg" name="submit" (click)="agregarProductoAlCarrito()">Agregar al carrito</button>
                             </div>
                         </div>
 
@@ -124,13 +116,4 @@
 
     </div>
 </section>
-
-<!-- <div class="row p-3">
-    <div class="col-12 col-sm-12 col-md-6 col-xl-4">
-            <img src="" alt="Imagen producto">
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-xl-8">
-            hola
-    </div>
-</div> -->
 

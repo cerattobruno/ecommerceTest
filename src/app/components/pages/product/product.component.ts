@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms'
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 
 @Component({
@@ -63,6 +64,38 @@ export class ProductComponent implements OnInit {
     (err: HttpErrorResponse) => {
       console.log(err);
     });
+  }
+
+  agregarProductoAlCarrito(){
+    let carrito: any = localStorage.getItem('carrito')
+    let carritoObjeto: any = []
+    let producto = {
+      id: this.producto_id,
+      nombre: this.producto_nombre,
+      precio: this.producto_precio,
+      cantidad: this.cantidad
+    }
+
+    if( carrito != '' && carrito != null ){
+      carritoObjeto = JSON.parse(carrito)      
+      carritoObjeto.push( producto )
+      
+      localStorage.removeItem('carrito')
+      localStorage.setItem('carrito', JSON.stringify(carritoObjeto))
+    } else {
+      carritoObjeto.push( producto )
+      localStorage.setItem('carrito', JSON.stringify(carritoObjeto))
+    }
+  }
+
+  validarCantidad(event: any){
+    console.log(event.srcElement.value);
+    if(event.srcElement.value <= 0){
+      // event.srcEelement.value = 1
+      this.cantidad = 1
+    } else {
+      this.cantidad = event.srcElement.value
+    }
   }
 
 }
