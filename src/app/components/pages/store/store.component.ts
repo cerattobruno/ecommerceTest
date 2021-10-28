@@ -8,12 +8,16 @@ import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.serv
   styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
+
   public productos : any
   public categorias : any
+  public filtroBusqueda = ''
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
   ) { 
+    this.filtroBusqueda = 'men'
+
     let p: any = localStorage.getItem('productos')
     this.productos = JSON.parse(p)
   }

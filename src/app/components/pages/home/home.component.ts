@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
       this.productos = JSON.parse(p)
       this.ordenarProductosByRating()
     } else this.searchProducts()
+
+    // this.searchProducts()
   }
 
   async searchProducts(){

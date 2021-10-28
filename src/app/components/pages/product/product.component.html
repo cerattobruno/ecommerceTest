@@ -1,0 +1,136 @@
+<section class="bg-light">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
+                <div class="card">
+                    <img class="card-img img-fluid" src="{{producto_imagen}}" alt="Imagen producto">
+                </div>
+            </div>
+            <div class="col-lg-7 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h2">{{producto_nombre}}</h1>
+                        <p class="h3 py-2">{{producto_precio | currency}}</p>
+                        <p class="py-2">
+                            <i class="bi bi-star-fill text-warning"></i> &nbsp;
+                            <span class="list-inline-item text-dark">Rating {{producto_rate}} | {{producto_count}} Valoraciones</span>
+                        </p>
+                        <!-- <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>Brand:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>Easy Wear</strong></p>
+                            </li>
+                        </ul> -->
+
+                        <h6>Descripción:</h6>
+                        <p>{{producto_descripcion}}</p>
+
+                        <h6>Categoría:</h6>
+                        <p>{{producto_categoria | titlecase}}</p>
+
+
+                        <div class="row">
+                            <div class="col-auto">
+                                <ul class="list-inline pb-3">
+                                    <li class="list-inline-item text-right">
+                                        Cantidad
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad" (ngModel)="cantidad">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row pb-3">
+                            <div class="col d-grid">
+                                <button type="submit" class="btn btn-outline-primary btn-lg" name="submit">Agregar al carrito</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center p-2 pb-5">
+            <h4>Productos que podrían interesarte</h4>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col " *ngFor="let p of productosRelacionados; let i = index">
+                <div class="row g-0" *ngIf="i < 3">
+                    <div class="col-md-4">
+                      <img src="{{p.image}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">{{p.title}}</h5>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <!--Start Carousel Wrapper-->
+        <!-- <div id="carousel-related-product">
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_08.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Red Clothing</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$20.00</p>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div> -->
+
+
+    </div>
+</section>
+
+<!-- <div class="row p-3">
+    <div class="col-12 col-sm-12 col-md-6 col-xl-4">
+            <img src="" alt="Imagen producto">
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-xl-8">
+            hola
+    </div>
+</div> -->
+

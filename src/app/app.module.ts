@@ -7,6 +7,8 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { StoreComponent } from './components/pages/store/store.component';
+import { PipeBusquedaProductosPipe } from './pipes/pipe-busqueda-productos.pipe';
+import { ProductComponent } from './components/pages/product/product.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { StoreComponent } from './components/pages/store/store.component';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    StoreComponent
+    StoreComponent,
+    PipeBusquedaProductosPipe,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
