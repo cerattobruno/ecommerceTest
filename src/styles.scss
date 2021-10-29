@@ -12,6 +12,16 @@ $theme-colors: (
   "danger": $danger
 );
 
+.card-img-top {
+  width: 100%;
+  height: 40vh;
+  object-fit: cover;
+}
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here
+
+// regular style toast
+@import '~ngx-toastr/toastr';
+

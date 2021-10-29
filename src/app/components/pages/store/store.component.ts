@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class StoreComponent implements OnInit {
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { 
     this.filtroBusqueda = 'men'
 
@@ -37,6 +39,10 @@ export class StoreComponent implements OnInit {
     (err: HttpErrorResponse) => {
       console.log(err);
       this.spinner.hide()
+      this.toastr.error('Intente de nuevo', 'Ups! Algo salió mal', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
     });
   }
 

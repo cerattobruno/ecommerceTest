@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -20,14 +22,15 @@ export class ProductComponent implements OnInit {
   public producto_count: number = 0
   public producto_categoria: string = ''
   public producto_imagen: string = ''
-  public cantidad : number = 0
+  public cantidad : number = 1
 
   public productosRelacionados: any 
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private amazonApiService : ServiceApiAmazonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { 
 
     this.activatedRoute.params.subscribe( params => {
@@ -91,6 +94,11 @@ export class ProductComponent implements OnInit {
       carritoObjeto.push( producto )
       localStorage.setItem('carrito', JSON.stringify(carritoObjeto))
     }
+
+    this.toastr.success('', 'Producto agregado correctamente', {
+      progressBar: true,
+      progressAnimation: 'increasing'
+    });
   }
 
   validarCantidad(event: any){

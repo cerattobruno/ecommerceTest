@@ -13,20 +13,24 @@ import { hide } from '@popperjs/core';
 export class HomeComponent implements OnInit {
 
   public productos : any;
-  public productosOrdenadosByPrice: any;
   public productosOrdenadosByRating: any;
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
     private spinner: NgxSpinnerService
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
-    if( localStorage.getItem('productos') != '' ){
+    if( localStorage.getItem('productos') != null ){
+      this.spinner.show()
       let p: any = localStorage.getItem('productos')
       this.productos = JSON.parse(p)
+      this.spinner.hide()
       this.ordenarProductosByRating()
-    } else this.searchProducts()
+    } else {
+      this.searchProducts()
+    }
 
     // this.searchProducts()
   }
@@ -35,8 +39,10 @@ export class HomeComponent implements OnInit {
     this.spinner.show()
     this.amazonApiService.getProducts().then( resp => {
       this.productos = resp['data']
+      this.productos.map( (p: any) => {
+        p.description.slice(1,30)
+      })
       localStorage.setItem('productos', JSON.stringify(this.productos))
-      this.ordenarProductosByPrice();
       this.ordenarProductosByRating();
       this.spinner.hide()
     },
@@ -44,10 +50,6 @@ export class HomeComponent implements OnInit {
       console.log(err);
     });
 
-  }
-
-  ordenarProductosByPrice() {
-    this.productosOrdenadosByPrice = _.orderBy(this.productos, ['price'] ,['asc'])
   }
 
   ordenarProductosByRating() {

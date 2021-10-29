@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carrito',
@@ -13,7 +14,8 @@ export class CarritoComponent implements OnInit {
   public isLoaded: boolean = false;
 
   constructor(
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) {
     this.actualizarCarrito()
    }
@@ -38,7 +40,7 @@ export class CarritoComponent implements OnInit {
       });
       this.isLoaded = true;
       this.spinner.hide()
-    }, 3000)
+    }, 1000)
   }
 
   deleteProduct( index: any ){
@@ -47,6 +49,10 @@ export class CarritoComponent implements OnInit {
     console.log(this.carrito.length);
     localStorage.removeItem('carrito')
     localStorage.setItem('carrito', JSON.stringify(this.carrito))
+    this.toastr.success('', 'Producto eliminado correctamente', {
+      progressBar: true,
+      progressAnimation: 'increasing'
+    });
     this.actualizarCarrito()
   }
 

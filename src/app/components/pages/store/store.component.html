@@ -39,7 +39,7 @@
                     <div class="col" *ngFor="let p of productos | pipeBusquedaProductos: filtroBusqueda">
                         <div class="card h-100 mb-4 rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src={{p.image}}>
+                                <img class="card-img-top " src={{p.image}}>
                             </div>
                             <div class="card-body">
                                 <a class="h3 text-decoration-none" [routerLink]="['/tienda', p.id]">{{p.title}}</a>
