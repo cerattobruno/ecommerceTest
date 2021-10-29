@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 import * as _ from 'lodash';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { hide } from '@popperjs/core';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -29,11 +32,13 @@ export class HomeComponent implements OnInit {
   }
 
   async searchProducts(){
+    this.spinner.show()
     this.amazonApiService.getProducts().then( resp => {
       this.productos = resp['data']
       localStorage.setItem('productos', JSON.stringify(this.productos))
       this.ordenarProductosByPrice();
       this.ordenarProductosByRating();
+      this.spinner.hide()
     },
     (err: HttpErrorResponse) => {
       console.log(err);
@@ -47,6 +52,7 @@ export class HomeComponent implements OnInit {
 
   ordenarProductosByRating() {
     this.productosOrdenadosByRating = _.orderBy(this.productos, ['rating.rate'] ,['desc'])
+
   }
 
   ilike( product: any ) {

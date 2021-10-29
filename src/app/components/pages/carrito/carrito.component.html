@@ -1,9 +1,17 @@
 <section class="py-5">
+    <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-spin-clockwise"
+        >
+        <p style="font-size: 20px; color: white">Cargando...</p>
+    </ngx-spinner>
     <div class="container vh-100">
         <div class="row text-center p-2 pb-5">
             <h4>Tu carrito</h4>
         </div>
-        <div class="row" *ngIf="carrito.length > 0">
+        <div class="row" *ngIf="carrito.length > 0 && isLoaded">
             <table class="table">
                 <thead>
                   <tr>
@@ -35,7 +43,7 @@
                 </tfoot>
             </table>
         </div>
-        <div class="row" *ngIf="carrito.length == 0">
+        <div class="row" *ngIf="carrito.length == 0 && isLoaded">
             <div class="alert alert-danger" role="alert">
                 No tienes productos en el carrito!
               </div>

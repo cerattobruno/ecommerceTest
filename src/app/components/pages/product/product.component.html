@@ -1,3 +1,11 @@
+<ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-spin-clockwise"
+    >
+    <p style="font-size: 20px; color: white">Cargando...</p>
+</ngx-spinner>
 <section class="bg-light">
     <div class="container pb-5">
         <div class="row">
@@ -53,7 +61,7 @@
         <div class="row text-center p-2 pb-5">
             <h4>Productos que podrían interesarte</h4>
         </div>
-
+       
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col " *ngFor="let p of productosRelacionados; let i = index">
                 <div class="row g-0" *ngIf="i < 3">

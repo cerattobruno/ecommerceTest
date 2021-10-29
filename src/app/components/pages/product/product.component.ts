@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-product',
@@ -26,6 +27,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private amazonApiService : ServiceApiAmazonService,
+    private spinner: NgxSpinnerService
   ) { 
 
     this.activatedRoute.params.subscribe( params => {
@@ -38,6 +40,7 @@ export class ProductComponent implements OnInit {
   }
 
   searchProductById(){
+    this.spinner.show()
     this.amazonApiService.getProductById(this.producto_id).then( (resp: any) => {
 
       let { title, description, rating, category, image, price } = resp['data']
@@ -49,6 +52,8 @@ export class ProductComponent implements OnInit {
       this.producto_rate = rating['rate']
       this.producto_categoria = category
       this.producto_imagen = image
+      
+      this.spinner.hide()
 
       this.searchProductByCategory()
     },
@@ -59,7 +64,7 @@ export class ProductComponent implements OnInit {
 
   searchProductByCategory(){
     this.amazonApiService.getProductByCategory(this.producto_categoria).then( (resp: any) => {
-      this.productosRelacionados = resp['data']   
+      this.productosRelacionados = resp['data']  
     },
     (err: HttpErrorResponse) => {
       console.log(err);

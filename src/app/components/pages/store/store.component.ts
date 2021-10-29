@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class StoreComponent implements OnInit {
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
+    private spinner: NgxSpinnerService
   ) { 
     this.filtroBusqueda = 'men'
 
@@ -27,12 +29,14 @@ export class StoreComponent implements OnInit {
   }
 
   searchCategories(){
+    this.spinner.show()
     this.amazonApiService.getCategories().then( resp => {
       this.categorias = resp['data'];
-      console.log(resp, this.categorias);
+      this.spinner.hide()
     },
     (err: HttpErrorResponse) => {
       console.log(err);
+      this.spinner.hide()
     });
   }
 
