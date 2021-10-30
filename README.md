@@ -1,6 +1,6 @@
 # EcommerceTest
 
-Este proyecto fue generadon a traves de Angular CLI v12.2.2.
+Este proyecto fue generado a traves de Angular CLI v12.2.2.
 Se trata de un e-commerce multi-rubo, que posee las siguientes características:
   - Productos mejores puntuados
   - Funcionalidad "Me gusta"
