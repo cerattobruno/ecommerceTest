@@ -1,74 +1,88 @@
-<div class="container py-5">
-    <ngx-spinner
-        bdColor="rgba(51,51,51,0.8)"
-        size="medium"
-        color="#fff"
-        type="ball-spin-clockwise"
-        >
-        <p style="font-size: 20px; color: white">Cargando...</p>
-    </ngx-spinner>
-    <div class="row">
+    <div class="container py-5">
+        <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-spin-clockwise"
+            >
+            <p style="font-size: 20px; color: white">Cargando...</p>
+        </ngx-spinner>
+        <div class="row">
 
-        <div class="col-lg-3">
-            <h1 class="h2 pb-4">Categorias</h1>
-            <ul class="list-unstyled">
-                <li class="pb-3" *ngFor="let c of categorias">
-                    <a class="d-flex justify-content-between text-decoration-none">
-                        <div class="form-check form-switch" (click)="changeCategory(c)">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">{{c}}</label>
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categorias</h1>
+                <ul class="list-unstyled">
+                    <li class="pb-3" *ngFor="let c of categorias">
+                        <app-switch [name]="c" (respuesta)="cambioValor($event, c)"></app-switch>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="h2 pb-4">Productos</h1>
+                    </div>
+                    <div class="col-md-6 pb-4">
+                        <div class="d-flex">
+                            <input type="text" class="form-control" placeholder="Buscar..." id="filtroBusqueda"  name="filtroBusqueda" [(ngModel)]="filtroBusqueda">
+                        </div>
+                    </div>
+                </div>  
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 g-4" *ngIf="productosFiltrados.length == 0">
+                    <div class="col" *ngFor="let p of productos | pipeBusquedaProductos: filtroBusqueda">
+                        <div class="card h-100 mb-4 rounded-0">
+                            <div class="card rounded-0">
+                                <img class="card-img-top " src={{p.image}}>
                             </div>
-<!-- 
-                            <div class="form-group">
-                            <label for="activol">Activo</label><br>
-                            <label class="switch float-left">
-                                <input id="activol" name="activol" type="checkbox" class="success" (click)="changeCategory($event, c)" >
-                                <span class="slider round"></span>
-                            </label>
-                            </div> -->
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-lg-9">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="h2 pb-4">Productos</h1>
-                </div>
-                <div class="col-md-6 pb-4">
-                    <div class="d-flex">
-                        <input type="text" class="form-control" placeholder="Buscar..." id="filtroBusqueda"  name="filtroBusqueda" [(ngModel)]="filtroBusqueda">
+                            <div class="card-body">
+                                <a class="h3 text-decoration-none" [routerLink]="['/tienda', p.id]">{{p.title}}</a>
+                                <p>{{p.description}}</p>
+                                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                    <li>
+                                        {{p.rating.rate}}&nbsp;<i class="text-warning bi bi-star-fill"></i>
+                                    </li>
+                                </ul>
+                                <h3 class="text-center mb-0 ">{{p.price | currency}}</h3>
+                            </div>
+                            <div class="d-grid ">
+                                <button type="button" class="btn btn-light" (click)="agregarProductoAlCarrito(p)">
+                                    <i class="bi bi-cart-plus-fill"></i>
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
-            </div>  
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 g-4">
-                <div class="col" *ngFor="let p of productos | pipeBusquedaProductos: filtroBusqueda">
-                    <div class="card h-100 mb-4 rounded-0">
-                        <div class="card rounded-0">
-                            <img class="card-img-top " src={{p.image}}>
+
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 g-4" *ngIf="productosFiltrados.length > 0">
+                    <div class="col" *ngFor="let p of productosFiltrados | pipeBusquedaProductos: filtroBusqueda">
+                        <div class="card h-100 mb-4 rounded-0">
+                            <div class="card rounded-0">
+                                <img class="card-img-top " src={{p.image}}>
+                            </div>
+                            <div class="card-body">
+                                <a class="h3 text-decoration-none" [routerLink]="['/tienda', p.id]">{{p.title}}</a>
+                                <p>{{p.description}}</p>
+                                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                    <li>
+                                        {{p.rating.rate}}&nbsp;<i class="text-warning bi bi-star-fill"></i>
+                                    </li>
+                                </ul>
+                                <h3 class="text-center mb-0 ">{{p.price | currency}}</h3>
+                            </div>
+                            <div class="d-grid ">
+                                <button type="button" class="btn btn-light" (click)="agregarProductoAlCarrito(p)">
+                                    <i class="bi bi-cart-plus-fill"></i>
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                            
                         </div>
-                        <div class="card-body">
-                            <a class="h3 text-decoration-none" [routerLink]="['/tienda', p.id]">{{p.title}}</a>
-                            <p>{{p.description}}</p>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    {{p.rating.rate}}&nbsp;<i class="text-warning bi bi-star-fill"></i>
-                                </li>
-                            </ul>
-                            <h3 class="text-center mb-0 ">{{p.price | currency}}</h3>
-                        </div>
-                        <div class="d-grid ">
-                            <button type="button" class="btn btn-light" (click)="agregarProductoAlCarrito(p)">
-                                <i class="bi bi-cart-plus-fill"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>

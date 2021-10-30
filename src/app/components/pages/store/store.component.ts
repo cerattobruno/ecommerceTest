@@ -7,6 +7,8 @@ import { ServiceCarritoService } from 'src/app/service/service-carrito.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
@@ -17,7 +19,8 @@ export class StoreComponent implements OnInit {
   public productos : any
   public categorias : any
   public filtroBusqueda : any
-  public filtroCategorias: any
+  public filtroCategorias: string[]
+  public productosFiltrados: any
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
@@ -26,6 +29,8 @@ export class StoreComponent implements OnInit {
     private toastr: ToastrService
   ) { 
     this.filtroBusqueda = ''
+    this.filtroCategorias = []
+    this.productosFiltrados = []
 
     let p: any = localStorage.getItem('productos')
     this.productos = JSON.parse(p)
@@ -51,17 +56,29 @@ export class StoreComponent implements OnInit {
     });
   }
 
-  changeCategory( category: any){
-    console.log(category);
+  cambioValor( event: any, categoria: any) {
+    event ? (
+      this.filtroCategorias.push(categoria)
+    ) : (
+      _.remove(this.filtroCategorias, (cat) =>  cat == categoria)
+    )
+
+    this.searchProductByCategory()
   }
 
   searchProductByCategory(){
-    this.amazonApiService.getProductByCategory(this.filtroCategorias).then( (resp: any) => {
-      this.productos = resp['data']  
-    },
-    (err: HttpErrorResponse) => {
-      console.log(err);
-    });
+      const resultFilter : any = []
+      if (this.filtroCategorias.length < 0) return this.productos;
+      this.productos.forEach((p: any) => {
+        this.filtroCategorias.forEach(cat => {
+          if( p.category == cat){
+            resultFilter.push(p)
+          }
+        });
+      });
+
+      this.productosFiltrados = []
+      this.productosFiltrados = resultFilter
   }
 
   async agregarProductoAlCarrito( p: any ){

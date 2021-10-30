@@ -16,6 +16,7 @@ import { StoreComponent } from './components/pages/store/store.component';
 import { PipeBusquedaProductosPipe } from './pipes/pipe-busqueda-productos.pipe';
 import { ProductComponent } from './components/pages/product/product.component';
 import { CarritoComponent } from './components/pages/carrito/carrito.component';
+import { SwitchComponent } from './components/custom-components/switch/switch.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CarritoComponent } from './components/pages/carrito/carrito.component';
     StoreComponent,
     PipeBusquedaProductosPipe,
     ProductComponent,
-    CarritoComponent
+    CarritoComponent,
+    SwitchComponent,
   ],
   imports: [
     BrowserModule,
