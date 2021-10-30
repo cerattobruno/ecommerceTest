@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { ServiceCarritoService } from 'src/app/service/service-carrito.service';
 
 @Component({
   selector: 'app-carrito',
@@ -14,6 +15,7 @@ export class CarritoComponent implements OnInit {
   public isLoaded: boolean = false;
 
   constructor(
+    private carritoService: ServiceCarritoService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService
   ) {
@@ -43,17 +45,24 @@ export class CarritoComponent implements OnInit {
     }, 1000)
   }
 
-  deleteProduct( index: any ){
-    console.log(this.carrito.length);
+  async deleteProductCarrito( index: any ){
     this.carrito.splice(index,1)
-    console.log(this.carrito.length);
-    localStorage.removeItem('carrito')
-    localStorage.setItem('carrito', JSON.stringify(this.carrito))
-    this.toastr.success('', 'Producto eliminado correctamente', {
-      progressBar: true,
-      progressAnimation: 'increasing'
-    });
-    this.actualizarCarrito()
+
+    let respuestaCarrito = await this.carritoService.deleteProduct( this.carrito )
+
+    respuestaCarrito ? (
+      this.toastr.success('', 'Producto eliminado correctamente', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      }),
+      this.actualizarCarrito()
+    ) : (
+      this.toastr.warning('', 'No pudimos eliminar el producto', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      }),
+      this.actualizarCarrito()
+    )
   }
 
 }

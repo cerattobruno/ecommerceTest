@@ -38,7 +38,7 @@
                                         Cantidad
                                     </li>
                                     <li class="list-inline-item">
-                                        <input type="number" class="form-control" name="cantidad" id="cantidad" (ngModel)="cantidad" (blur)="validarCantidad($event)">
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad" [(ngModel)]="cantidad" (blur)="validarCantidad($event)">
                                     </li>
                                 </ul>
                             </div>
@@ -66,11 +66,11 @@
             <div class="col " *ngFor="let p of productosRelacionados; let i = index">
                 <div class="row g-0" *ngIf="i < 3">
                     <div class="col-md-4">
-                      <img src="{{p.image}}" class="img-fluid rounded-start" alt="...">
+                      <img src="{{p.image}}" class="img-fluid rounded-start" alt="..." >
                     </div>
                     <div class="col-md-8">
                       <div class="card-body">
-                        <h5 class="card-title">{{p.title}}</h5>
+                        <h5 class="card-title" >{{p.title}}</h5>
                       </div>
                     </div>
                   </div>

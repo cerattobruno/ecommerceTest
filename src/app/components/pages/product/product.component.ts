@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms'
+
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
+import { ServiceCarritoService } from 'src/app/service/service-carrito.service';
+
 import { NgxSpinnerService } from 'ngx-spinner';
-import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -27,8 +28,9 @@ export class ProductComponent implements OnInit {
   public productosRelacionados: any 
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private amazonApiService : ServiceApiAmazonService,
+    private carritoService: ServiceCarritoService,
+    private activatedRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService
   ) { 
@@ -61,7 +63,10 @@ export class ProductComponent implements OnInit {
       this.searchProductByCategory()
     },
     (err: HttpErrorResponse) => {
-      console.log(err);
+      this.toastr.error('Intente de nuevo', 'Ups! Algo salió mal', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
     });
   }
 
@@ -70,41 +75,37 @@ export class ProductComponent implements OnInit {
       this.productosRelacionados = resp['data']  
     },
     (err: HttpErrorResponse) => {
-      console.log(err);
+      this.toastr.error('Intente de nuevo', 'Ups! Algo salió mal', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
     });
   }
 
-  agregarProductoAlCarrito(){
-    let carrito: any = localStorage.getItem('carrito')
-    let carritoObjeto: any = []
+  async agregarProductoAlCarrito(){
     let producto = {
       id: this.producto_id,
       nombre: this.producto_nombre,
       precio: this.producto_precio,
       cantidad: this.cantidad
     }
-
-    if( carrito != '' && carrito != null ){
-      carritoObjeto = JSON.parse(carrito)      
-      carritoObjeto.push( producto )
-      
-      localStorage.removeItem('carrito')
-      localStorage.setItem('carrito', JSON.stringify(carritoObjeto))
-    } else {
-      carritoObjeto.push( producto )
-      localStorage.setItem('carrito', JSON.stringify(carritoObjeto))
-    }
-
-    this.toastr.success('', 'Producto agregado correctamente', {
-      progressBar: true,
-      progressAnimation: 'increasing'
-    });
+    let respuestaCarrito = await this.carritoService.agregarProducto( producto )
+    respuestaCarrito ? (
+      this.toastr.success('', 'Producto agregado correctamente', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      })
+    ) : (
+      this.toastr.warning('', 'No pudimos agregar el producto', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      })
+    )
+    
   }
 
   validarCantidad(event: any){
-    console.log(event.srcElement.value);
     if(event.srcElement.value <= 0){
-      // event.srcEelement.value = 1
       this.cantidad = 1
     } else {
       this.cantidad = event.srcElement.value

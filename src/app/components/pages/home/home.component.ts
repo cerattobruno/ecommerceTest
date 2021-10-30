@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceApiAmazonService } from 'src/app/service/service-api-amazon.service';
 import * as _ from 'lodash';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { hide } from '@popperjs/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private amazonApiService : ServiceApiAmazonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { 
   }
 
@@ -32,7 +33,6 @@ export class HomeComponent implements OnInit {
       this.searchProducts()
     }
 
-    // this.searchProducts()
   }
 
   async searchProducts(){
@@ -47,7 +47,10 @@ export class HomeComponent implements OnInit {
       this.spinner.hide()
     },
     (err: HttpErrorResponse) => {
-      console.log(err);
+      this.toastr.error('Intente de nuevo', 'Ups! Algo salió mal', {
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
     });
 
   }

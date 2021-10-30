@@ -1,4 +1,3 @@
-<!-- Start Featured Product -->
 <section class="bg-light">
     <div class="container py-5">
         <div class="row text-center py-3">
@@ -11,13 +10,13 @@
         </div>
         <div class="row">
             <ngx-spinner
-            bdColor="rgba(51,51,51,0.8)"
-            size="medium"
-            color="#fff"
-            type="ball-spin-clockwise"
-            >
-            <p style="font-size: 20px; color: white">Cargando...</p>
-        </ngx-spinner>
+                bdColor="rgba(51,51,51,0.8)"
+                size="medium"
+                color="#fff"
+                type="ball-spin-clockwise"
+                >
+                <p style="font-size: 20px; color: white">Cargando...</p>
+            </ngx-spinner>
             <ng-container *ngFor="let p of productosOrdenadosByRating; let i = index">
                 <div class="col-12 col-sm-12 col-md-4 mb-4" *ngIf="i < 3">
                     <div class="card h-100" >
@@ -29,7 +28,7 @@
                                 </li>
                                 <li class="text-muted text-right">{{p.price | currency}}</li>
                             </ul>
-                            <a class="h2 text-decoration-none text-dark">{{p.title}}</a>
+                            <a class="h2 text-decoration-none text-dark" [routerLink]="['/tienda', p.id]">{{p.title}}</a>
                             
                         </div>
                         <div class="card-footer">
@@ -46,4 +45,3 @@
         </div>
     </div>
 </section>
-<!-- End Featured Product -->
