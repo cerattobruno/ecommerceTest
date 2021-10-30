@@ -14,6 +14,6 @@ Se trata de un e-commerce multi-rubo, que posee las siguientes características:
 
 ## Pasos
 
- 1. Clonar el proyecto: `git clone `
+ 1. Clonar el proyecto: `git clone https://github.com/cerattobruno/ecommerceTest.git`
  2. Instalar dependencias: `npm install`
  3. Inicializar servidor: `ng serve -o` 
