@@ -9,14 +9,19 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+
 import { HomeComponent } from './components/pages/home/home.component';
 import { StoreComponent } from './components/pages/store/store.component';
-import { PipeBusquedaProductosPipe } from './pipes/pipe-busqueda-productos.pipe';
 import { ProductComponent } from './components/pages/product/product.component';
 import { CarritoComponent } from './components/pages/carrito/carrito.component';
+
 import { SwitchComponent } from './components/custom-components/switch/switch.component';
+import { DarkModeToggleComponent } from './components/custom-components/dark-mode-toggle/dark-mode-toggle.component';
+
+import { PipeBusquedaProductosPipe } from './pipes/pipe-busqueda-productos.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { SwitchComponent } from './components/custom-components/switch/switch.co
     ProductComponent,
     CarritoComponent,
     SwitchComponent,
+    DarkModeToggleComponent,
   ],
   imports: [
     BrowserModule,

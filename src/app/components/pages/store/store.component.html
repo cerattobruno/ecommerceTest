@@ -82,6 +82,12 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" *ngIf="productos.length == 0">
+                    <div class="alert alert-danger" role="alert">
+                        No se encontraron productos.
+                      </div>
+                </div>
             </div>
 
         </div>
